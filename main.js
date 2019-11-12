@@ -1,5 +1,7 @@
 "use strict";
 
+//EJERCICIO 1
+
 const myNumbers = [1, 2, 3, 1];
 
 function checkNumbers(array) {
@@ -14,6 +16,8 @@ function checkNumbers(array) {
 }
 
 console.log(checkNumbers(myNumbers));
+
+//EJERCICIO 2
 
 const binaryArray = [0, 0, 1, 1, 1, 0, 1, 0, 1, 1];
 
@@ -36,6 +40,7 @@ function checkBinary(array) {
 
 console.log(checkBinary(binaryArray));
 
+//EJERCICIO 3
 const arrayZeros = [0, 0, 1];
 
 function pushZeros(array) {
