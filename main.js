@@ -141,8 +141,8 @@ let aux; //variable temporal
 
 for (let i = 0; i < copy.length; i++) {
   for (let j = 0; j < copy.length; j++) {
-    if (copy[j] < copy[i]) {
-      // si el numero que estamos comprobando es mayor que otro del array
+    if (copy[j] > copy[i]) {
+      // si el numero que estamos comprobando es menor que otro del array
       aux = copy[i];
       copy[i] = copy[j]; //los intercambiamos de lugar
       copy[j] = aux;
@@ -153,7 +153,7 @@ console.log(copy); //al final del bucle y de cambiar los numeros de lugar se ord
 
 const ordered = nums.sort((a, b) => {
   //cpmparamos los valores a y b del array
-  return a - b; //que nos devuelva que a sea menor que b
+  return a + b; //que nos devuelva que a sea mayor que b
 });
 console.log(ordered);
 
