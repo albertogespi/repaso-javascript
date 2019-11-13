@@ -73,9 +73,11 @@ let puntosSara = [89, 120, 103];
 let puntosLaura = [116, 94, 123];
 let puntosMaria = [97, 134, 105];
 
-function calcularMedia(puntos) {
-  return puntos.reduce((acc, curr) => (acc + curr) / puntos.length);
-} //funcion para calcular la media de cualquier array de puntos
+const calcularMedia = puntos => {
+  const puntosTotales = puntos.reduce((acc, curr) => acc + curr);
+  return puntosTotales / puntos.length;
+};
+//funcion para calcular la media de cualquier array de puntos
 
 let mediaSara = calcularMedia(puntosSara);
 let mediaLaura = calcularMedia(puntosLaura);
