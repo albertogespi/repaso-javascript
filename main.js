@@ -153,7 +153,7 @@ console.log(copy); //al final del bucle y de cambiar los numeros de lugar se ord
 
 const ordered = nums.sort((a, b) => {
   //cpmparamos los valores a y b del array
-  return a + b; //que nos devuelva que a sea mayor que b
+  return b - a; //que nos devuelva que a sea mayor que b
 });
 console.log(ordered);
 
