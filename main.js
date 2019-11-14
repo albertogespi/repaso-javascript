@@ -154,7 +154,7 @@ for (let i = 0; i < copy.length; i++) {
 console.log(copy); //al final del bucle y de cambiar los numeros de lugar se ordenan
 
 const ordered = nums.sort((a, b) => {
-  //cpmparamos los valores a y b del array
+  //comparamos los valores a y b del array
   return b - a; //que nos devuelva que b sea menor que a
 });
 console.log(ordered);
@@ -172,3 +172,52 @@ const difference = (num1, num2) => {
 
 difference(valor1, valor2);
 //asignamos los 2 valores del prompt a la función difference
+
+//CLASE ROBOT
+
+class Robot {
+  constructor(space) {
+    this.space = space;
+    this.rowPosition = 0;
+    this.columnPosition = 0;
+  }
+  moveLeft() {
+    if (this.columnPosition === 0) {
+      return;
+    }
+    this.columnPosition--;
+  }
+  moveRight() {
+    if (this.columnPosition === this.space[this.rowPosition].length - 1) {
+      return; //comprobamos si podemos seguir hacia la derecha, aunque la longitud de las filas sea distinta a las columnas
+    }
+    this.columnPosition++;
+  }
+  moveUp() {
+    if (this.rowPosition === 0) {
+      return;
+    }
+    this.rowPosition--;
+  }
+  moveDown() {
+    if (this.rowPosition === this.space.length - 1) {
+      return;
+    }
+    this.rowPosition++;
+  }
+  currentPosition() {
+    return this.space[this.rowPosition][this.columnPosition];
+  } //posición actual
+  getCoordenates() {
+    console.log([this.columnPosition, this.rowPosition]);
+  } //coordenadas actuales
+}
+
+const mySpace = [
+  [1, 9, 5, 8],
+  [7, 6, 3, 4],
+  [4, 5, 8, 1]
+];
+const myRobot = new Robot(mySpace);
+console.log(myRobot.currentPosition());
+myRobot.getCoordenates();
