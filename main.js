@@ -221,3 +221,127 @@ const mySpace = [
 const myRobot = new Robot(mySpace);
 console.log(myRobot.currentPosition());
 myRobot.getCoordenates();
+
+//EJERCICIO BANCO
+
+class Banco {
+  constructor(name, address) {
+    this.name = name;
+    this.address = address;
+    this.client = [];
+  }
+  bloquearCuenta(cuenta) {
+    cuenta.access = false; //accedemos a la propiedad access de CuentaBancaria y la volvemos false
+  }
+  desbloquearCuenta(cuenta) {
+    cuenta.access = true; //lo mismo pero vuelve a true
+  }
+}
+
+class CuentaBancaria {
+  constructor(id) {
+    this.balance = 0;
+    this.id = id;
+    this.access = true;
+  }
+}
+
+class Titular {
+  constructor(name, gender, wallet) {
+    this.name = name;
+    this.gender = gender;
+    this.wallet = wallet;
+    this.id = Math.floor(Math.random() * 999999999);
+  }
+  abrirCuenta(banco) {
+    banco.client.push({ name: this.name, ID: this.id }); //accedemos a la propiedad client de Banco y hacemos push de los datos del titular
+    return new CuentaBancaria(this.id);
+  }
+
+  ingresarDinero(cantidad, cuenta) {
+    if (this.id === cuenta.id && cuenta.access === true) {
+      if (cantidad > this.wallet) {
+        console.log(`not enough money in your wallet`);
+      } else {
+        this.wallet -= cantidad;
+        cuenta.balance += cantidad;
+        console.log(`money operation completed`);
+      }
+    } else {
+      console.log(`acceso denegado`);
+    }
+  }
+  //solo si el id del titular y de la cuenta coinciden se pueden hacer operaciones en la cuenta
+  //igualmente la propiedad access de la cuenta debe ser true para que nos deje operar
+
+  retirarDinero(cantidad, cuenta) {
+    if (this.id === cuenta.id && cuenta.access === true) {
+      if (cantidad > cuenta.balance) {
+        console.log(`not enough money in your bank`);
+      } else {
+        cuenta.balance -= cantidad;
+        this.wallet += cantidad;
+        console.log(`money operation completed`);
+      }
+    } else {
+      console.log(`acceso denegado`);
+    }
+  }
+
+  mostrarSaldo(cuenta) {
+    console.log(cuenta.balance);
+  }
+}
+
+const abanca = new Banco("Abanca", "Av. Sardiñeira 13"); //nuevo banco
+
+const Manolo = new Titular(`Manolo`, `hombre`, 10000); //nuevo titular
+
+const cuentaManolo = Manolo.abrirCuenta(abanca); //nueva cuenta
+console.log(abanca);
+console.log(cuentaManolo);
+Manolo.ingresarDinero(1000, cuentaManolo); //ingresamos 1000 desde la wallet del titular al balance de la cuenta
+Manolo.retirarDinero(200, cuentaManolo); //retiramos 200 desde el balance hacia la wallet
+Manolo.mostrarSaldo(cuentaManolo); //saldo en la cuenta
+abanca.bloquearCuenta(cuentaManolo); //access = false y se bloquean las operaciones en la cuenta
+abanca.desbloquearCuenta(cuentaManolo); //volvemos a habilitar las operaciones
+Manolo.ingresarDinero(1000, cuentaManolo);
+Manolo.mostrarSaldo(cuentaManolo);
+console.log(cuentaManolo);
+
+//EJERCICIO PUPITRES
+
+const pupitres = [12, 2, 6, 7, 11];
+
+function getCombinations(seats) {
+  const totalSeats = seats.shift(); //extraemos el primer numero del array, ahora totalSeats = 12 y seats =[2, 6, 7, 11]
+  let posibleSeats = 0; //variable para ir sumando los sitios posibles
+  for (let i = 1; i < totalSeats; i++) {
+    //recorremos numeros del 1 al 12(sitios totales)
+    if (seats.indexOf(i) === -1) {
+      //si el numero que comprobamos no esta en el array seats(sitios ocupados)
+      if (i % 2 !== 0) {
+        //para los impares
+        const right = i + 1; //comprobamos el sitio de su derecha
+        const down = i + 2; //y el sitio debajo/detrás
+        if (seats.indexOf(right) === -1) {
+          //si el sitio de la derecha no está ocupado
+          posibleSeats++; //sumamos un sitio a la variable final
+        }
+        if (seats.indexOf(down) === -1) {
+          //si el sitio debajo/detrás no está ocupado
+          posibleSeats++; //sumamos otro sitio
+        }
+      } else {
+        //para los pares
+        const down = i + 2; //comprobamos el sitio debajo/detrás
+        if (seats.indexOf(down) === -1) {
+          //si no está ocupado
+          posibleSeats++; //sumamos otro sitio
+        }
+      }
+    }
+  }
+  console.log(posibleSeats); //todas las maneras posibles de sentar a dos alumnos en sitios contiguos
+}
+getCombinations(pupitres);
